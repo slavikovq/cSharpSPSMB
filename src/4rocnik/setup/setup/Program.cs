@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 
 namespace setup
 {
@@ -27,13 +28,14 @@ namespace setup
                 }
             }
             */
-            
+            /*
             bool gameRunning = true;
+            Random rnd = new Random();
+            int generatedNumber = rnd.Next(1, 100);
             while (gameRunning)
             {
                 Console.WriteLine("Write a number between 1 and 100.");
-                Random rnd = new Random();
-                int generatedNumber = rnd.Next(1, 100);
+
                 int userNumber = Convert.ToInt32(Console.ReadLine());
                 if (userNumber == generatedNumber)
                 {
@@ -49,6 +51,42 @@ namespace setup
                     Console.WriteLine("You are different numbers!");
                 }
             }
+            */
+            Console.Write("Math problem: ");
+            string mathProblem = Console.ReadLine();
+
+            string[] splitProblem = Regex.Split(mathProblem, @"\s+");
+            double finished = 0;
+
+            foreach (var item in splitProblem)
+            {
+                Console.WriteLine(item + " &#");
+            }
+
+            switch (splitProblem[1])
+            {
+                case "+":
+                    finished = Convert.ToDouble(splitProblem[0]) +  Convert.ToDouble(splitProblem[2]); 
+                    break;
+                case "-":
+                    finished = Convert.ToDouble(splitProblem[0]) - Convert.ToDouble(splitProblem[2]);
+                    break;
+                case "*":
+                    finished = Convert.ToDouble(splitProblem[0]) * Convert.ToDouble(splitProblem[2]);
+                    break;
+                case "/":
+                    finished = Convert.ToDouble(splitProblem[0]) / Convert.ToDouble(splitProblem[2]);
+                    break;
+                case "**":
+                    finished = Math.Pow(Convert.ToDouble(splitProblem[0]), Convert.ToDouble(splitProblem[2]));
+                    break;
+                default: 
+                    Console.WriteLine("Sth went wrong!");
+                    break;
+            }
+
+            Console.WriteLine($"{splitProblem[0]} {splitProblem[1]} {splitProblem[2]} = {finished}");
+            
         }
     }
 }
