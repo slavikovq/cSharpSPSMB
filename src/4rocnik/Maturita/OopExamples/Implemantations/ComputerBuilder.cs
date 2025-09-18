@@ -49,16 +49,7 @@ public class ComputerBuilder : IComputerBuilder
 
     public IComputer Build()
     {
-        return new Computer
-        {
-            MotherBoard = _motherBoard,
-            Cpu = _cpu,
-            Gpu = _gpu, 
-            Ram = _ram,
-            PowerSupply = _powerSupply,
-            Case = _case,
-            IsOn = false
-        };
+        return new Computer(_motherBoard, _cpu, _gpu, _ram, _powerSupply, _case);
     }
 
     public IComputer BuildFromConfiguration(IComputerConfiguration configuration)

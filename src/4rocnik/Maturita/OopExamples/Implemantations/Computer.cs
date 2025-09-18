@@ -5,6 +5,16 @@ namespace OopExamples.Implemantations;
 
 public class Computer : IComputer
 {
+    public Computer(IMotherBoard motherBoard, ICPU cpu, IGPU gpu, IRAM ram, IPowerSupply powerSupply, ICase @case)
+    {
+        MotherBoard = motherBoard;
+        Cpu = cpu;
+        Gpu = gpu;
+        Ram = ram;
+        PowerSupply = powerSupply;
+        Case = @case;
+    }
+
     public IEntity Owner { get; init; }
     public IMotherBoard MotherBoard { get; init; }
     public ICPU Cpu { get; init; }
@@ -25,19 +35,18 @@ public class Computer : IComputer
     public void ShutDown()
     {
         IsOn = false;
-        /*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*/
     }
 
     public void PressPowerButton()
     {
-        if (IsOn == true)
+        if (IsOn)
         {
             IsOn = false;
         }
-
-        if (IsOn == false)
+        else
         {
             IsOn = true;
+
         }
     }
 
@@ -89,15 +98,7 @@ public class Computer : IComputer
     
     public IComputer BuildNewComputer(IComputerConfiguration configuration)
     {
-        return new Computer
-        {
-            MotherBoard = configuration.MotherBoard,
-            Cpu = configuration.Cpu,
-            Gpu = configuration.Gpu,
-            Ram = configuration.Ram,
-            PowerSupply = configuration.PowerSupply,
-            Case = configuration.Case,
-            IsOn = false,
-        };
+        return new Computer(configuration.MotherBoard, configuration.Cpu, configuration.Gpu, configuration.Ram,
+            configuration.PowerSupply, configuration.Case);
     }
 }

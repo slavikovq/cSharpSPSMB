@@ -1,16 +1,22 @@
-﻿using OopExamples.Interfaces;
+﻿using OopExamples.Implemantations;
+using OopExamples.implementations;
+using OopExamples.Interfaces;
 
 namespace OopExamples.Tests;
 
 public class IsComputerOn
 {
-    private readonly IComputer _computer;
+    private readonly IComputer _computer = new ComputerBuilder()
+        .AddMotherBoard(new Motherboard("mb"))
+        .AddCPU(new CPU("cpu"))
+        .AddGPU(new GPU("gpu", new [] { GPUConnector.AVG}))
+        .AddRam(new RAM("ram"))
+        .AddPowerSupply(new PowerSupply("ps"))
+        .AddCase(new Case("case"))
+        .Build();
 
     public IsComputerOn()
     {
-        // Create instance of IComputer, using your implementation
-        _computer = null;
-        
         // Do not touch this
         _computer = _computer ?? throw new System.NotImplementedException($"{nameof(_computer)} not implemented");
     }
@@ -64,7 +70,7 @@ public class IsComputerOn
     {
         _computer.PressPowerButton();
         _computer.PressPowerButton();
-        Assert.True(_computer.IsOn);
+        Assert.False(_computer.IsOn);
     }
     
     [Fact]
