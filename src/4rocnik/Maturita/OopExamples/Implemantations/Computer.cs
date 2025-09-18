@@ -25,6 +25,7 @@ public class Computer : IComputer
     public void ShutDown()
     {
         IsOn = false;
+        /*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*/
     }
 
     public void PressPowerButton()
