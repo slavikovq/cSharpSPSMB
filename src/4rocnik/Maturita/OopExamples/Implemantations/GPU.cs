@@ -54,4 +54,6 @@ public class GPU : IGPU
         _connectedMonitors.Remove(monitor);
         _availableConnectors.Add(Connectors[_connectedMonitors.Count]);
     }
+    
+    
 }
