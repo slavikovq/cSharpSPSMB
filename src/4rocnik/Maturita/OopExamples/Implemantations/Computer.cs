@@ -5,7 +5,7 @@ namespace OopExamples.Implemantations;
 
 public class Computer : IComputer
 {
-    public IEntity Owner { get; init; }
+    public IEntity Owner { get; set; }
     public IMotherBoard MotherBoard { get; init; }
     public ICPU Cpu { get; init; }
     public IGPU Gpu { get; init; }
@@ -14,8 +14,8 @@ public class Computer : IComputer
     public ICase Case { get; init; }
     public IMonitor[] Monitors { get; init; }
     public bool IsOn { get; set; }
-    public bool IsPersonalPC { get; }
-    public bool IsCompanyPC { get; }
+    public bool IsPersonalPC { get; set; }
+    public bool IsCompanyPC { get; set; }
 
     public void PowerUp()
     {
@@ -30,15 +30,7 @@ public class Computer : IComputer
 
     public void PressPowerButton()
     {
-        if (IsOn == true)
-        {
-            IsOn = false;
-        }
-
-        if (IsOn == false)
-        {
-            IsOn = true;
-        }
+        IsOn = !IsOn;
     }
 
     public void Print(string text)
@@ -86,7 +78,39 @@ public class Computer : IComputer
 
         return (float)finished;
     }
-    
+
+    public void ChangeOwner(IEntity? newOwner)
+    {
+        if (newOwner == null)
+        {
+            RemoveOwner();
+            return;
+        }
+
+        if (newOwner is Person person)
+        {
+            Owner = person;
+            IsPersonalPC = true;
+            IsCompanyPC = false;
+        }
+        else if (newOwner is Company company)
+        {
+            Owner = company;
+            IsPersonalPC = false;
+            IsCompanyPC = true;
+        }
+    }
+
+
+    public void RemoveOwner()
+    {
+        Owner = null;
+        IsPersonalPC = false;
+        IsCompanyPC = false;
+        
+        
+    }
+
     public IComputer BuildNewComputer(IComputerConfiguration configuration)
     {
         return new Computer
@@ -97,7 +121,7 @@ public class Computer : IComputer
             Ram = configuration.Ram,
             PowerSupply = configuration.PowerSupply,
             Case = configuration.Case,
-            IsOn = false,
         };
     }
+
 }
